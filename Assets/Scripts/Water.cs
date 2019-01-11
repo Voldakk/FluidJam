@@ -20,6 +20,8 @@ public class Water : MonoBehaviour
 
     Vector2 a, b, c, d, e, f;
 
+    float width, height;
+
     private void Awake()
     {
         collider = GetComponent<BoxCollider2D>();
@@ -75,8 +77,9 @@ public class Water : MonoBehaviour
                 f = a + ab * (afy / ab.y);
 
                 // The AFE triangle
-                submergedArea += Vector2.Distance(a, f) * Vector2.Distance(a, e) / 2;
+                submergedArea += TriangleArea(a, f, e);
             }
+            // One side submerged
             else if (bellow.Count == 2)
             {
                 // Find a, b, c, d
@@ -100,17 +103,15 @@ public class Water : MonoBehaviour
                 f = b + bc * (bcy / bc.y);
 
                 // The AFE + ABF triangle
-                submergedArea += Vector2.Distance(a, f) * Vector2.Distance(a, e) / 2;
-                submergedArea += Vector2.Distance(a, b) * Vector2.Distance(b, f) / 2;
+                submergedArea += TriangleArea(a, f, e);
+                submergedArea += TriangleArea(a, b, f);
             }
+            // Everything but one corner submerged
             else if (bellow.Count == 3)
             {
                 // The index thats above the water
                 int sum = bellow.Sum();
                 int above = 6 - sum;
-               
-                if(above < 0 || above > 3)
-                    Debug.LogErrorFormat("Density: {0}, volume: {1}, force: ", objectDensity, objectVolume);
 
                 // Find a, b, c, d
                 d = GetPoint(above + 0);
@@ -129,17 +130,17 @@ public class Water : MonoBehaviour
                 f = c + cd * (cdy / cd.y);
 
                 // The ABC + ACF + AFE triangle
-                submergedArea += Vector2.Distance(a, b) * Vector2.Distance(b, c) / 2;
-                submergedArea += Vector2.Distance(a, f) * Vector2.Distance(f, e) / 2;
-                submergedArea += Vector2.Distance(a, f) * Vector2.Distance(a, e) / 2;
+                submergedArea += TriangleArea(a, b, c);
+                submergedArea += TriangleArea(a, c, f);
+                submergedArea += TriangleArea(a, f, e);
             }
             else
             {
                 // Find a, b, c, d
-                a = GetPoint(bellow[0]);
-                b = GetPoint(bellow[0] + 3);
-                c = GetPoint(bellow[0] + 2);
-                d = GetPoint(bellow[0] + 1);
+                a = GetPoint(0);
+                b = GetPoint(1);
+                c = GetPoint(2);
+                d = GetPoint(3);
 
                 submergedArea = size.x * size.y;
             }
@@ -159,19 +160,17 @@ public class Water : MonoBehaviour
 
     public Vector2 GetPoint(int index)
     {
-        try
-        {
-            if (index >= points.Length)
-                return points[index - points.Length];
+        if (index >= points.Length)
+            return points[index - points.Length];
 
-            return points[index];
-        }
-        catch (Exception e)
-        {
-            Debug.LogErrorFormat("Error index {0} - {1}", index, e.Message);
-        }
+        return points[index];
+    }
 
-        return Vector2.zero;
+    private float TriangleArea(Vector2 pointA, Vector2 pointB, Vector2 pointC)
+    {
+        width = Vector2.Distance(pointA, pointB);
+        height = Vector2.Distance(pointA, pointC) * Mathf.Sin(Mathf.Deg2Rad * Vector2.Angle(pointB - pointA, pointC - pointA));
+        return 0.5f * width * height;
     }
 
     private void OnDrawGizmos()
