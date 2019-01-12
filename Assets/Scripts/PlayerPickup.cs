@@ -116,4 +116,12 @@ public class PlayerPickup : MonoBehaviour
             }
         }
     }
+
+    public void SetActive(bool active)
+    {
+        enabled = active;
+
+        joint.connectedBody = null;
+        joint.enabled = false;
+    }
 }

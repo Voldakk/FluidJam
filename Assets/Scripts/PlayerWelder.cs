@@ -54,10 +54,11 @@ public class PlayerWelder : MonoBehaviour
                             // If we're conenction 2 points
                             if (currentPoint)
                             {
-                                // If it's the same point
+                                // If it's the same point / object
                                 if (point == currentPoint || point.physicsObject == currentPoint.physicsObject)
                                 {
                                     // Cancel
+                                    currentPoint.SetVissible(true);
                                     currentPoint = null;
                                 }
                                 else
@@ -68,8 +69,8 @@ public class PlayerWelder : MonoBehaviour
                                         currentPoint.connected = point;
                                         point.connected = currentPoint;
 
-                                        point.Hide();
-                                        currentPoint.Hide();
+                                        currentPoint.SetVissible(false);
+                                        point.SetVissible(false);
 
                                         Transform a = currentPoint.physicsObject.transform;
                                         Transform b = point.physicsObject.transform;
@@ -91,6 +92,7 @@ public class PlayerWelder : MonoBehaviour
                                     else
                                     {
                                         // Out of range
+                                        currentPoint.SetVissible(true);
                                         currentPoint = null;
                                     }
                                 }
@@ -99,6 +101,7 @@ public class PlayerWelder : MonoBehaviour
                             else
                             {
                                 currentPoint = point;
+                                currentPoint.SetVissible(false);
                             }
                         }
                     }
@@ -108,6 +111,23 @@ public class PlayerWelder : MonoBehaviour
             {
                 // Out of range
             }
+        }
+
+        // Click to cancel
+        if(Input.GetButtonDown("CancelWeld") && currentPoint)
+        {
+            currentPoint.SetVissible(true);
+            currentPoint = null;
+        }
+    }
+
+    public void SetActive(bool active)
+    {
+        enabled = active;
+
+        foreach (var c in allPoints)
+        {
+            c.SetVissible(active);
         }
     }
 }

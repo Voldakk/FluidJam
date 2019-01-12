@@ -15,7 +15,7 @@ public class ConnectionPoint : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         collider = GetComponent<CircleCollider2D>();
 
-        Show();
+        SetVissible(false);
     }
 
     private void Start()
@@ -23,14 +23,17 @@ public class ConnectionPoint : MonoBehaviour
         PlayerWelder.allPoints.Add(this);
     }
 
-    public void Hide()
+    public void SetVissible(bool vissible)
     {
-        sr.enabled = false;
-        collider.enabled = false;
-    }
-    public void Show()
-    {
-        sr.enabled = true;
-        collider.enabled = true;
+        if (connected)
+        {
+            sr.enabled = false;
+            collider.enabled = false;
+        }
+        else
+        {
+            sr.enabled = vissible;
+            collider.enabled = vissible;
+        }
     }
 }
