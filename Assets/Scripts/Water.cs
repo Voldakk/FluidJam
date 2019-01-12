@@ -41,9 +41,8 @@ public class Water : MonoBehaviour
         if (collision is BoxCollider2D)
         {
             BoxCollider2D boxCollider = collision as BoxCollider2D;
-            Vector2 size = boxCollider.size * t.lossyScale;
-            Vector2 halfSize = size * 0.5f;
 
+            Vector2 halfSize = boxCollider.size * 0.5f;
             points[0] = t.TransformPoint(halfSize * new Vector2(1f, 1f) + boxCollider.offset);
             points[1] = t.TransformPoint(halfSize * new Vector2(1f, -1f) + boxCollider.offset);
             points[2] = t.TransformPoint(halfSize * new Vector2(-1f, -1f) + boxCollider.offset);
@@ -55,6 +54,9 @@ public class Water : MonoBehaviour
                 if (points[i].y < waterLevel)
                     bellow.Add(i);
             }
+
+            Vector2 size = boxCollider.size * t.lossyScale;
+            halfSize = size / 2f;
 
             float submergedArea = 0f;
 
