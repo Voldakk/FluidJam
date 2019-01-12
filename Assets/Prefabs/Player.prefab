@@ -36,6 +36,18 @@ MonoBehaviour:
   maxDistance: 2
   objectLayerName: Objects
   playerObjectLayerName: PlayerObject
+--- !u!114 &4733644318543695416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7068987173410353512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0af17717dd2ae5e45a554462ff2b3eda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7068987173410387914
 PrefabInstance:
   m_ObjectHideFlags: 0

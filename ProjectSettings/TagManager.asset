@@ -17,7 +17,7 @@ TagManager:
   - Player
   - Objects
   - PlayerObject
-  - 
+  - ConnectionPoint
   - 
   - 
   - 
@@ -52,4 +52,7 @@ TagManager:
     locked: 0
   - name: Ground
     uniqueID: 2438997089
+    locked: 0
+  - name: UI
+    uniqueID: 4183974865
     locked: 0

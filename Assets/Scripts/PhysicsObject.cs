@@ -7,12 +7,21 @@ public class PhysicsObject : LevelObject
 
     Rigidbody2D rb;
 
+    public ConnectionPoint[] connectionPoints;
+
     private void Awake()
     {
         position = transform.position;
         rotation = transform.rotation;
 
         rb = GetComponent<Rigidbody2D>();
+
+        connectionPoints = new ConnectionPoint[transform.childCount];
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            connectionPoints[i] = transform.GetChild(i).GetComponent<ConnectionPoint>();
+            connectionPoints[i].physicsObject = this;
+        }
     }
 
     public override void Reset()
@@ -24,6 +33,17 @@ public class PhysicsObject : LevelObject
         {
             rb.velocity = Vector2.zero;
             rb.angularVelocity = 0f;
+        }
+
+        foreach (var c in connectionPoints)
+        {
+            c.connected = null;
+        }
+
+        var joints = transform.GetComponents<HingeJoint2D>();
+        foreach (var j in joints)
+        {
+            Destroy(j);
         }
     }
 }
