@@ -51,7 +51,13 @@ public class PlayerPickup : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, float.MaxValue, objectLayer);
 
         if(hit.collider != null && joint.connectedBody == null)
-            CursorManager.SetCursor(Cursors.Pickup);
+        {
+            if (Vector2.Distance(hit.point, transform.position) <= maxDistance)
+                CursorManager.SetCursor(Cursors.Pickup);
+            else
+                CursorManager.SetCursor(Cursors.PickupOutOfRange);
+
+        }
         else
             CursorManager.SetCursor(Cursors.Pointer);
 

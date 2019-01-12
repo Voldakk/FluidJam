@@ -2,7 +2,7 @@
 
 public enum Cursors
 {
-    None, Pointer, Pickup
+    None, Pointer, Pickup, PickupOutOfRange
 }
 
 public class CursorManager : MonoBehaviour
