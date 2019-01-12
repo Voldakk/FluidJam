@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Math : MonoBehaviour
+public static class Math
 {
     public static float TriangleArea(Vector2 pointA, Vector2 pointB, Vector2 pointC)
     {
@@ -133,5 +133,14 @@ public class Math : MonoBehaviour
         Vector2 intersection = Vector2.zero;
         LineIntersection(s0, t0, s1, t1, ref intersection);
         return intersection;
+    }
+
+    public static Vector2 Sub(this Vector2 v2, Vector3 v3)
+    {
+        return new Vector2(v2.x - v3.x, v2.y - v3.y);
+    }
+    public static Vector2 Add(this Vector2 v2, Vector3 v3)
+    {
+        return new Vector2(v2.x + v3.x, v2.y + v3.y);
     }
 }
