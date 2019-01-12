@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Trigger : MonoBehaviour
+public abstract class Trigger : LevelObject
 {
     [SerializeField]
     protected Triggerable[] triggers;

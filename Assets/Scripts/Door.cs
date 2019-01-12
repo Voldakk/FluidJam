@@ -49,4 +49,9 @@ public class Door : Triggerable
     {
         SetState(DoorState.Open);
     }
+
+    public override void Reset()
+    {
+        SetState(DoorState.Closed);
+    }
 }

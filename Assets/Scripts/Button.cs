@@ -52,4 +52,9 @@ public class Button : Trigger
             Activate();
         }
     }
+
+    public override void Reset()
+    {
+        SetState(ButtonState.Standard);
+    }
 }

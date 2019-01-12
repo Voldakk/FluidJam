@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public abstract class Triggerable : MonoBehaviour
+public abstract class Triggerable : LevelObject
 {
     public abstract void OnTrigger();
 }

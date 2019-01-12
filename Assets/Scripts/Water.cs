@@ -217,7 +217,7 @@ public class Water : MonoBehaviour
         rb.velocity -= rb.velocity * linearDrag * Time.fixedDeltaTime;
         rb.angularVelocity -= rb.angularVelocity * angularDrag * Time.fixedDeltaTime;
 
-        Debug.LogFormat("Volume: {0}, force: {1}", objectVolume, force);
+        //Debug.LogFormat("Volume: {0}, force: {1}", objectVolume, force);
     }
 
     float angle;

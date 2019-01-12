@@ -31,7 +31,7 @@ public class PlayerPickup : MonoBehaviour
     void Update()
     {
         mousePos = camera.ScreenToWorldPoint(Input.mousePosition);
-        mouseClick = Input.GetButtonDown("Fire1") || mouseClick;
+        mouseClick = Input.GetButtonDown("Pickup") || mouseClick;
     }
 
     private void LateUpdate()
