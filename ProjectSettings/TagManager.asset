@@ -38,6 +38,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 4072799153
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
@@ -47,6 +50,6 @@ TagManager:
   - name: Water
     uniqueID: 479328691
     locked: 0
-  - name: Tilemap
+  - name: Ground
     uniqueID: 2438997089
     locked: 0

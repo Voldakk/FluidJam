@@ -134,13 +134,4 @@ public static class Math
         LineIntersection(s0, t0, s1, t1, ref intersection);
         return intersection;
     }
-
-    public static Vector2 Sub(this Vector2 v2, Vector3 v3)
-    {
-        return new Vector2(v2.x - v3.x, v2.y - v3.y);
-    }
-    public static Vector2 Add(this Vector2 v2, Vector3 v3)
-    {
-        return new Vector2(v2.x + v3.x, v2.y + v3.y);
-    }
 }
