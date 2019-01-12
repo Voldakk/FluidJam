@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 [RequireComponent(typeof(BoxCollider2D))]
 public class Water : MonoBehaviour
@@ -32,8 +33,8 @@ public class Water : MonoBehaviour
     {
         Transform t = collision.transform;
         Rigidbody2D rb = collision.attachedRigidbody;
-        float objectDensity = collision.density;
-        float objectVolume = rb.mass / objectDensity;
+
+        float objectVolume = 0;
         Vector2 centerOfForce = t.position;
 
         // Calcualte displaced volume
@@ -154,6 +155,56 @@ public class Water : MonoBehaviour
 
             objectVolume = submergedArea;
         }
+        else if (collision is CircleCollider2D)
+        {
+            CircleCollider2D circleCollider = collision as CircleCollider2D;
+            float radius = circleCollider.radius * Mathf.Max(t.lossyScale.x, t.lossyScale.y);
+            Vector2 center = circleCollider.bounds.center;
+
+            Vector2 mid = center;
+            mid.y = waterLevel;
+
+            depth = waterLevel - (center.y - radius);
+
+            a = mid;
+            c = center;
+
+            // More than halfway out of the water
+            if (depth > 0 && depth <= radius)
+            {
+                angle = Mathf.Rad2Deg * Mathf.Asin((radius - depth) / radius);
+                angle = (90 - angle);
+
+                // Find b
+                b = mid;
+                b.x += Mathf.Sin(angle * Mathf.Deg2Rad) * radius;
+
+                // The volume of the sector
+                objectVolume = ((angle * 2f) / 360f) * Mathf.PI * radius * radius;
+
+                // We only want the  volume of the segment
+                objectVolume -= Math.TriangleArea(a, b, c) * 2;
+            }
+            else if (depth > radius && depth < radius * 2)
+            {
+                angle = Mathf.Rad2Deg * Mathf.Asin((depth - radius) / radius);
+                angle = (90 - angle);
+
+                // Find b
+                b = mid;
+                b.x += Mathf.Sin(angle * Mathf.Deg2Rad) * radius;
+
+                // The volume of everything but the sector
+                objectVolume = ((360 - angle * 2f) / 360f) * Mathf.PI * radius * radius;
+
+                // Add the triangle in the sector, but not the segment
+                objectVolume += Math.TriangleArea(a, b, c) * 2;
+            }
+            else if (depth >= radius * 2)
+            {
+                objectVolume = Mathf.PI * radius * radius;
+            }
+        }
 
         // Apply force
         Vector2 force = density * objectVolume * -Physics2D.gravity;
@@ -164,8 +215,11 @@ public class Water : MonoBehaviour
         rb.velocity -= rb.velocity * linearDrag * Time.fixedDeltaTime;
         rb.angularVelocity -= rb.angularVelocity * angularDrag * Time.fixedDeltaTime;
 
-        Debug.LogFormat("Density: {0}, volume: {1}, force: {2}", objectDensity, objectVolume, force);
+        Debug.LogFormat("Volume: {0}, force: {1}", objectVolume, force);
     }
+
+    float angle;
+    float depth;
 
     // Wraps the index
     public Vector2 GetPoint(int index)
