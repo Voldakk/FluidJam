@@ -449,7 +449,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeeddcf7091fd7247be6ad5419684791, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  linearDrag: 0.1
+  linearDrag: 1
+  angularDrag: 1
   density: 1
 --- !u!61 &824080951
 BoxCollider2D:

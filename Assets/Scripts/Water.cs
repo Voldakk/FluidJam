@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +9,9 @@ public class Water : MonoBehaviour
     private float linearDrag = 0.1f;
 
     [SerializeField]
+    private float angularDrag = 0.1f;
+
+    [SerializeField]
     private float density = 1;
 
     private new BoxCollider2D collider;
@@ -18,9 +20,7 @@ public class Water : MonoBehaviour
     private Vector2[] points = new Vector2[4];
     private List<int> bellow = new List<int>(4);
 
-    Vector2 a, b, c, d, e, f;
-
-    float width, height;
+    Vector2 a, b, c, d, e, f, cof;
 
     private void Awake()
     {
@@ -33,10 +33,10 @@ public class Water : MonoBehaviour
         Transform t = collision.transform;
         Rigidbody2D rb = collision.attachedRigidbody;
         float objectDensity = collision.density;
-
-        // Calcualte volume
         float objectVolume = rb.mass / objectDensity;
+        Vector2 centerOfForce = t.position;
 
+        // Calcualte displaced volume
         if (collision is BoxCollider2D)
         {
             BoxCollider2D boxCollider = collision as BoxCollider2D;
@@ -77,7 +77,10 @@ public class Water : MonoBehaviour
                 f = a + ab * (afy / ab.y);
 
                 // The AFE triangle
-                submergedArea += TriangleArea(a, f, e);
+                submergedArea += Math.TriangleArea(a, f, e);
+
+                // The center of force
+                centerOfForce = Math.TriangeCenterOfMass(a, f, e);
             }
             // One side submerged
             else if (bellow.Count == 2)
@@ -103,8 +106,11 @@ public class Water : MonoBehaviour
                 f = b + bc * (bcy / bc.y);
 
                 // The AFE + ABF triangle
-                submergedArea += TriangleArea(a, f, e);
-                submergedArea += TriangleArea(a, b, f);
+                submergedArea += Math.TriangleArea(a, f, e);
+                submergedArea += Math.TriangleArea(a, b, f);
+
+                // The center of force
+                centerOfForce = Math.QuadrilateralCenterOfMass(a, e, f, b);
             }
             // Everything but one corner submerged
             else if (bellow.Count == 3)
@@ -129,10 +135,11 @@ public class Water : MonoBehaviour
                 float cdy = waterLevel - c.y;
                 f = c + cd * (cdy / cd.y);
 
-                // The ABC + ACF + AFE triangle
-                submergedArea += TriangleArea(a, b, c);
-                submergedArea += TriangleArea(a, c, f);
-                submergedArea += TriangleArea(a, f, e);
+                // The DEF
+                submergedArea += size.x * size.y - Math.TriangleArea(d, e, f);
+
+                // The center of force
+                centerOfForce = Math.PentagonCenterOfMass(a, b, c, f, e);
             }
             else
             {
@@ -150,14 +157,17 @@ public class Water : MonoBehaviour
 
         // Apply force
         Vector2 force = density * objectVolume * -Physics2D.gravity;
-        rb.AddForce(force, ForceMode2D.Force);
+        rb.AddForceAtPosition(force, centerOfForce, ForceMode2D.Force);
+        cof = centerOfForce;
 
         // Drag
-        rb.velocity -= rb.velocity * linearDrag;
+        rb.velocity -= rb.velocity * linearDrag * Time.fixedDeltaTime;
+        rb.angularVelocity -= rb.angularVelocity * angularDrag * Time.fixedDeltaTime;
 
         Debug.LogFormat("Density: {0}, volume: {1}, force: {2}", objectDensity, objectVolume, force);
     }
 
+    // Wraps the index
     public Vector2 GetPoint(int index)
     {
         if (index >= points.Length)
@@ -166,31 +176,29 @@ public class Water : MonoBehaviour
         return points[index];
     }
 
-    private float TriangleArea(Vector2 pointA, Vector2 pointB, Vector2 pointC)
-    {
-        width = Vector2.Distance(pointA, pointB);
-        height = Vector2.Distance(pointA, pointC) * Mathf.Sin(Mathf.Deg2Rad * Vector2.Angle(pointB - pointA, pointC - pointA));
-        return 0.5f * width * height;
-    }
-
     private void OnDrawGizmos()
     {
+        float radius = 0.05f;
+
         Gizmos.color = Color.red;
-        Gizmos.DrawSphere(a, 0.1f);
+        Gizmos.DrawSphere(a, radius);
 
         Gizmos.color = Color.blue;
-        Gizmos.DrawSphere(b, 0.1f);
+        Gizmos.DrawSphere(b, radius);
 
         Gizmos.color = Color.green;
-        Gizmos.DrawSphere(c, 0.1f);
+        Gizmos.DrawSphere(c, radius);
 
         Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(d, 0.1f);
+        Gizmos.DrawSphere(d, radius);
 
         Gizmos.color = Color.cyan;
-        Gizmos.DrawSphere(e, 0.1f);
+        Gizmos.DrawSphere(e, radius);
 
         Gizmos.color = Color.magenta;
-        Gizmos.DrawSphere(f, 0.1f);
+        Gizmos.DrawSphere(f, radius);
+
+        Gizmos.color = Color.black;
+        Gizmos.DrawSphere(cof, radius);
     }
 }
