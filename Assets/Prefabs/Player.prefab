@@ -36,18 +36,6 @@ MonoBehaviour:
   maxDistance: 2
   objectLayerName: Objects
   playerObjectLayerName: PlayerObject
---- !u!114 &4733644318543695416
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7068987173410353512}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0af17717dd2ae5e45a554462ff2b3eda, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1795419879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,7 +54,7 @@ MonoBehaviour:
   connectionLayer:
     serializedVersion: 2
     m_Bits: 4096
-  maxDistance: 10
+  maxDistance: 5
 --- !u!114 &1795419880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,6 +69,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hands: {fileID: 1411540658}
   welder: {fileID: 1795419879}
+--- !u!114 &4733644318543695416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7068987173410353512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0af17717dd2ae5e45a554462ff2b3eda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7068987173410387914
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -46,13 +46,17 @@ MonoBehaviour:
   cursorTextures:
   - {fileID: 2800000, guid: 97daa339d70183140b7ca6303e80ad2b, type: 3}
   - {fileID: 2800000, guid: 97daa339d70183140b7ca6303e80ad2b, type: 3}
-  - {fileID: 2800000, guid: 4651fb989e37006488511fdf3c6c82ff, type: 3}
-  - {fileID: 2800000, guid: eed8b1ba8cac1734dbba23063c10ee45, type: 3}
+  - {fileID: 2800000, guid: c18f4576655bd45438ca04b0d2cc1ce1, type: 3}
+  - {fileID: 2800000, guid: e252b75a222d09c41977dab6e4e1641e, type: 3}
+  - {fileID: 2800000, guid: 02657b659a0bfba4ba44ec7b02343dc3, type: 3}
+  - {fileID: 2800000, guid: 86b26a201b0c88c4caf5b1c9f1984df0, type: 3}
   cursorHotspots:
   - {x: 0, y: 0}
   - {x: 0, y: 0}
-  - {x: 800, y: 800}
-  - {x: 800, y: 800}
+  - {x: 32, y: 32}
+  - {x: 32, y: 32}
+  - {x: 3, y: 13}
+  - {x: 3, y: 13}
 --- !u!1 &3133850304473901781
 GameObject:
   m_ObjectHideFlags: 0
