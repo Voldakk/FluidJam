@@ -15,7 +15,7 @@ public abstract class Trigger : LevelObject
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.blue;
+        Gizmos.color = Color.green;
         if (triggers != null)
         {
             foreach (var t in triggers)
