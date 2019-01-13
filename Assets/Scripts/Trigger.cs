@@ -16,9 +16,13 @@ public abstract class Trigger : LevelObject
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
-        foreach (var t in triggers)
+        if (triggers != null)
         {
-            Gizmos.DrawLine(transform.position, t.transform.position);
+            foreach (var t in triggers)
+            {
+                if(t != null)
+                    Gizmos.DrawLine(transform.position, t.transform.position);
+            }
         }
     }
 }

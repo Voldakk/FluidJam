@@ -36,8 +36,6 @@ public class PlayerWelder : MonoBehaviour
 
         if(hit.collider)
         {
-            Debug.Log("Hit " + hit.collider.gameObject.name);
-
             if (Vector2.Distance(hit.point, transform.position) <= maxDistance)
             {
                 ConnectionPoint point = hit.collider.GetComponent<ConnectionPoint>();
@@ -86,6 +84,14 @@ public class PlayerWelder : MonoBehaviour
                                         joint.autoConfigureConnectedAnchor = false;
                                         joint.anchor = a.InverseTransformPoint(currentPoint.transform.position);
                                         joint.connectedAnchor = b.InverseTransformPoint(point.transform.position);
+
+                                        /*joint.useLimits = true;
+                                        JointAngleLimits2D limits = new JointAngleLimits2D
+                                        {
+                                            min = 0f,
+                                            max = 0f
+                                        };
+                                        joint.limits = limits;*/
 
                                         currentPoint = null;
                                     }

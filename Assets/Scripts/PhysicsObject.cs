@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class PhysicsObject : LevelObject
 {
@@ -7,7 +8,7 @@ public class PhysicsObject : LevelObject
 
     Rigidbody2D rb;
 
-    public ConnectionPoint[] connectionPoints;
+    public List<ConnectionPoint> connectionPoints;
 
     private void Awake()
     {
@@ -16,11 +17,16 @@ public class PhysicsObject : LevelObject
 
         rb = GetComponent<Rigidbody2D>();
 
-        connectionPoints = new ConnectionPoint[transform.childCount];
+        connectionPoints = new List<ConnectionPoint>();
+
         for (int i = 0; i < transform.childCount; i++)
         {
-            connectionPoints[i] = transform.GetChild(i).GetComponent<ConnectionPoint>();
-            connectionPoints[i].physicsObject = this;
+            ConnectionPoint point = transform.GetChild(i).GetComponent<ConnectionPoint>();
+            if(point)
+            {
+                point.physicsObject = this;
+                connectionPoints.Add(point);
+            }
         }
     }
 
