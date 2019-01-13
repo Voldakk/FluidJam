@@ -25,7 +25,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7068987173410353512}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a5d443fb24a0ce24e804d3754da98533, type: 3}
   m_Name: 
@@ -48,6 +48,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0af17717dd2ae5e45a554462ff2b3eda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1795419879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7068987173410353512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63d034c626b100345879377110b5d519, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  connectionLayer:
+    serializedVersion: 2
+    m_Bits: 4096
+  maxDistance: 10
+--- !u!114 &1795419880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7068987173410353512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bf52f3b426719d41b8b4700f7445e09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hands: {fileID: 1411540658}
+  welder: {fileID: 1795419879}
 --- !u!1001 &7068987173410387914
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -47,9 +47,11 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 97daa339d70183140b7ca6303e80ad2b, type: 3}
   - {fileID: 2800000, guid: 97daa339d70183140b7ca6303e80ad2b, type: 3}
   - {fileID: 2800000, guid: 4651fb989e37006488511fdf3c6c82ff, type: 3}
+  - {fileID: 2800000, guid: eed8b1ba8cac1734dbba23063c10ee45, type: 3}
   cursorHotspots:
   - {x: 0, y: 0}
   - {x: 0, y: 0}
+  - {x: 800, y: 800}
   - {x: 800, y: 800}
 --- !u!1 &3133850304473901781
 GameObject:
@@ -74,7 +76,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3133850304473901781}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

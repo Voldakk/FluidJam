@@ -10,12 +10,14 @@ public class ConnectionPoint : MonoBehaviour
 
     public ConnectionPoint connected;
 
+    public static bool vissible = false;
+
     void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
         collider = GetComponent<CircleCollider2D>();
 
-        SetVissible(false);
+        UpdateVissibility();
     }
 
     private void Start()
@@ -23,7 +25,13 @@ public class ConnectionPoint : MonoBehaviour
         PlayerWelder.allPoints.Add(this);
     }
 
-    public void SetVissible(bool vissible)
+
+    public void UpdateVissibility()
+    {
+        UpdateVissibility(vissible);
+    }
+
+    public void UpdateVissibility(bool vissible)
     {
         if (connected)
         {
@@ -32,6 +40,8 @@ public class ConnectionPoint : MonoBehaviour
         }
         else
         {
+            if (!sr)
+                Debug.LogError("Missing sr", gameObject);
             sr.enabled = vissible;
             collider.enabled = vissible;
         }

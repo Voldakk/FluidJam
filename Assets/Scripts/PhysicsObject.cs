@@ -44,6 +44,7 @@ public class PhysicsObject : LevelObject
         foreach (var c in connectionPoints)
         {
             c.connected = null;
+            c.UpdateVissibility();
         }
 
         var joints = transform.GetComponents<HingeJoint2D>();

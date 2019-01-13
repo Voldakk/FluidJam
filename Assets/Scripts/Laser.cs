@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class Laser : LevelObject
+public class Laser : MonoBehaviour
 {
     LineRenderer lr;
 
@@ -44,7 +44,10 @@ public class Laser : LevelObject
 
                 LaserReciever lr = hit.transform.GetComponent<LaserReciever>();
                 if (lr)
+                {
                     lr.Trigger();
+                    break;
+                }
             }
             else
             {
@@ -55,10 +58,5 @@ public class Laser : LevelObject
 
         lr.positionCount = points.Count;
         lr.SetPositions(points.ToArray());
-    }
-
-    public override void Reset()
-    {
-        
     }
 }
