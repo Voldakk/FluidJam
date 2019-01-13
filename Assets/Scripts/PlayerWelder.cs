@@ -34,35 +34,45 @@ public class PlayerWelder : MonoBehaviour
         Vector2 mousePos = camera.ScreenToWorldPoint(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, float.MaxValue, connectionLayer);
 
-        if(hit.collider)
+        Cursors cursor = Cursors.Pointer;
+        if (currentPoint)
+            cursor = Cursors.Welder;
+
+        if (hit.collider)
         {
-            if (Vector2.Distance(hit.point, transform.position) <= maxDistance)
+            ConnectionPoint point = hit.collider.GetComponent<ConnectionPoint>();
+            if (point)
             {
-                ConnectionPoint point = hit.collider.GetComponent<ConnectionPoint>();
-                if (point)
+                if (Vector2.Distance(hit.point, transform.position) <= maxDistance)
                 {
-                    if (Input.GetButtonDown("Weld"))
+                    if (point.connected)
                     {
-                        if (point.connected)
+                        // Occupied
+                        // Should never happen
+                    }
+                    else
+                    {
+                        // If we're conenction 2 points
+                        if (currentPoint)
                         {
-                            // Occupied
-                        }
-                        else
-                        {
-                            // If we're conenction 2 points
-                            if (currentPoint)
+                            // If it's the same point / object
+                            if (point == currentPoint || point.physicsObject == currentPoint.physicsObject)
                             {
-                                // If it's the same point / object
-                                if (point == currentPoint || point.physicsObject == currentPoint.physicsObject)
+                                cursor = Cursors.WelderOutOfRange;
+                                if (Input.GetButtonDown("Weld"))
                                 {
                                     // Cancel
                                     currentPoint.UpdateVissibility();
                                     currentPoint = null;
                                 }
-                                else
+                            }
+                            else
+                            {
+                                // If it's in range
+                                if (Vector3.Distance(point.transform.position, currentPoint.transform.position) <= maxDistance)
                                 {
-                                    // If it's in range
-                                    if (Vector3.Distance(point.transform.position, currentPoint.transform.position) <= maxDistance)
+                                    cursor = Cursors.Welder;
+                                    if (Input.GetButtonDown("Weld"))
                                     {
                                         currentPoint.connected = point;
                                         point.connected = currentPoint;
@@ -95,7 +105,11 @@ public class PlayerWelder : MonoBehaviour
 
                                         currentPoint = null;
                                     }
-                                    else
+                                }
+                                else
+                                {
+                                    cursor = Cursors.WelderOutOfRange;
+                                    if (Input.GetButtonDown("Weld"))
                                     {
                                         // Out of range
                                         currentPoint.UpdateVissibility();
@@ -103,8 +117,12 @@ public class PlayerWelder : MonoBehaviour
                                     }
                                 }
                             }
-                            // Selecting the first point
-                            else
+                        }
+                        // Selecting the first point
+                        else
+                        {
+                            cursor = Cursors.Welder;
+                            if (Input.GetButtonDown("Weld"))
                             {
                                 currentPoint = point;
                                 currentPoint.UpdateVissibility(false);
@@ -112,11 +130,15 @@ public class PlayerWelder : MonoBehaviour
                         }
                     }
                 }
+                else
+                {
+                    cursor = Cursors.WelderOutOfRange;
+                }
             }
-            else
-            {
-                // Out of range
-            }
+        }
+        else if(currentPoint && Vector2.Distance(hit.point, transform.position) > maxDistance)
+        {
+            cursor = Cursors.WelderOutOfRange;
         }
 
         // Click to cancel
@@ -125,6 +147,8 @@ public class PlayerWelder : MonoBehaviour
             currentPoint.UpdateVissibility();
             currentPoint = null;
         }
+
+        CursorManager.SetCursor(cursor);
     }
 
     public void SetActive(bool active)
