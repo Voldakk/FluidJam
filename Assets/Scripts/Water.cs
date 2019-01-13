@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 [RequireComponent(typeof(BoxCollider2D))]
 public class Water : MonoBehaviour
@@ -21,12 +20,45 @@ public class Water : MonoBehaviour
     private Vector2[] points = new Vector2[4];
     private List<int> bellow = new List<int>(4);
 
-    Vector2 a, b, c, d, e, f, cof;
+    private Vector2 a, b, c, d, e, f, cof;
+
+    private Vector3 startPosition;
+    private Vector3 startScale;
+    private float displacedVolume = 0f;
+    private float extraHeight;
+    [SerializeField]
+    private float heightT = 1f;
+
+    [SerializeField]
+    private float enterModifier = 1f;
+    [SerializeField]
+    private float downModifier = 2f;
 
     private void Awake()
     {
         collider = GetComponent<BoxCollider2D>();
         waterLevel = collider.bounds.max.y;
+
+        startPosition = transform.position;
+        startScale = transform.localScale;
+    }
+
+    private void FixedUpdate()
+    {
+        extraHeight = Mathf.Lerp(extraHeight, displacedVolume / startScale.x, Time.fixedDeltaTime * heightT);
+
+        transform.localScale = startScale + Vector3.up * extraHeight;
+        transform.position = startPosition + Vector3.up * extraHeight / 2f;
+
+        waterLevel = collider.bounds.max.y;
+
+        displacedVolume = 0f;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Rigidbody2D rb = collision.attachedRigidbody;
+        rb.velocity *= enterModifier;
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -144,6 +176,10 @@ public class Water : MonoBehaviour
                 // The center of force
                 centerOfForce = Math.PentagonCenterOfMass(a, b, c, f, e);
             }
+            else if(bellow.Count == 0)
+            {
+                submergedArea = 0f;
+            }
             else
             {
                 // Find a, b, c, d
@@ -208,16 +244,21 @@ public class Water : MonoBehaviour
             }
         }
 
+        objectVolume = Mathf.Abs(objectVolume);
+
         // Apply force
         Vector2 force = density * objectVolume * -Physics2D.gravity;
         rb.AddForceAtPosition(force, centerOfForce, ForceMode2D.Force);
         cof = centerOfForce;
 
         // Drag
-        rb.velocity -= rb.velocity * linearDrag * Time.fixedDeltaTime;
+        rb.velocity -= rb.velocity * Mathf.Min(rb.velocity.magnitude, Time.fixedDeltaTime * linearDrag * (rb.velocity.y < 0 ? downModifier : 1f));
         rb.angularVelocity -= rb.angularVelocity * angularDrag * Time.fixedDeltaTime;
 
-        //Debug.LogFormat("Volume: {0}, force: {1}", objectVolume, force);
+        // Add to the total displaced amount this fixed update
+        displacedVolume += objectVolume;
+
+        Debug.LogFormat("Volume: {0}, force: {1}", objectVolume, force);
     }
 
     float angle;

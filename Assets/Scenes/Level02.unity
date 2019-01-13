@@ -334,7 +334,7 @@ PrefabInstance:
     - target: {fileID: 2455066076042180301, guid: cd0b7a2fb91a18f44b837410b928aaaf,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.94
+      value: -11.44
       objectReference: {fileID: 0}
     - target: {fileID: 2455066076042180301, guid: cd0b7a2fb91a18f44b837410b928aaaf,
         type: 3}
@@ -1426,6 +1426,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: LaserReciever (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4467448464511213574, guid: 441269e6754474548a704cce40458468,
+        type: 3}
+      propertyPath: triggers.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4467448464511213574, guid: 441269e6754474548a704cce40458468,
+        type: 3}
+      propertyPath: triggers.Array.data[0]
+      value: 
+      objectReference: {fileID: 1554126888}
     - target: {fileID: 4467448464511213575, guid: 441269e6754474548a704cce40458468,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1481,16 +1491,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -45
       objectReference: {fileID: 0}
-    - target: {fileID: 4467448464511213574, guid: 441269e6754474548a704cce40458468,
-        type: 3}
-      propertyPath: triggers.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4467448464511213574, guid: 441269e6754474548a704cce40458468,
-        type: 3}
-      propertyPath: triggers.Array.data[0]
-      value: 
-      objectReference: {fileID: 1554126888}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 441269e6754474548a704cce40458468, type: 3}
 --- !u!1 &1454116650
@@ -1911,6 +1911,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: LaserReciever (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4467448464511213574, guid: 441269e6754474548a704cce40458468,
+        type: 3}
+      propertyPath: triggers.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4467448464511213574, guid: 441269e6754474548a704cce40458468,
+        type: 3}
+      propertyPath: triggers.Array.data[0]
+      value: 
+      objectReference: {fileID: 1036488154}
     - target: {fileID: 4467448464511213575, guid: 441269e6754474548a704cce40458468,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1966,16 +1976,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 295
       objectReference: {fileID: 0}
-    - target: {fileID: 4467448464511213574, guid: 441269e6754474548a704cce40458468,
-        type: 3}
-      propertyPath: triggers.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4467448464511213574, guid: 441269e6754474548a704cce40458468,
-        type: 3}
-      propertyPath: triggers.Array.data[0]
-      value: 
-      objectReference: {fileID: 1036488154}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 441269e6754474548a704cce40458468, type: 3}
 --- !u!1001 &1681162728
@@ -2288,6 +2288,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: LaserReciever
       objectReference: {fileID: 0}
+    - target: {fileID: 4467448464511213574, guid: 441269e6754474548a704cce40458468,
+        type: 3}
+      propertyPath: triggers.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4467448464511213574, guid: 441269e6754474548a704cce40458468,
+        type: 3}
+      propertyPath: triggers.Array.data[0]
+      value: 
+      objectReference: {fileID: 1481763802}
     - target: {fileID: 4467448464511213575, guid: 441269e6754474548a704cce40458468,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2343,16 +2353,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 180
       objectReference: {fileID: 0}
-    - target: {fileID: 4467448464511213574, guid: 441269e6754474548a704cce40458468,
-        type: 3}
-      propertyPath: triggers.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4467448464511213574, guid: 441269e6754474548a704cce40458468,
-        type: 3}
-      propertyPath: triggers.Array.data[0]
-      value: 
-      objectReference: {fileID: 1481763802}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 441269e6754474548a704cce40458468, type: 3}
 --- !u!1 &1870467235
@@ -4326,12 +4326,12 @@ PrefabInstance:
     - target: {fileID: 1024756033497950997, guid: 9a95217ec7138a04997550078d87e14c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.84
+      value: -11.5
       objectReference: {fileID: 0}
     - target: {fileID: 1024756033497950997, guid: 9a95217ec7138a04997550078d87e14c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.5600004
+      value: 5.2
       objectReference: {fileID: 0}
     - target: {fileID: 1024756033497950997, guid: 9a95217ec7138a04997550078d87e14c,
         type: 3}
@@ -4644,12 +4644,12 @@ PrefabInstance:
     - target: {fileID: 7068987173410516296, guid: 6a98e11642d08154fb82441319a7e6d4,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.84
+      value: -11.5
       objectReference: {fileID: 0}
     - target: {fileID: 7068987173410516296, guid: 6a98e11642d08154fb82441319a7e6d4,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.56
+      value: 4.2
       objectReference: {fileID: 0}
     - target: {fileID: 7068987173410516296, guid: 6a98e11642d08154fb82441319a7e6d4,
         type: 3}

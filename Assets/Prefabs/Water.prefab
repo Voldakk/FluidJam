@@ -96,6 +96,9 @@ MonoBehaviour:
   linearDrag: 1
   angularDrag: 1
   density: 1
+  heightT: 0.5
+  enterModifier: 0.5
+  downModifier: 2
 --- !u!61 &8823017674927859218
 BoxCollider2D:
   m_ObjectHideFlags: 0
